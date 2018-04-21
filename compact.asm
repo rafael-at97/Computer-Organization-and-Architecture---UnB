@@ -29,6 +29,23 @@ Abre_Arquivos: # Open the necessary files
 	la $a0, message
 	syscall
 	
+	# Print a message in case the reading was not successful
+	bne $a1, $zero, Fim
+	
+	move $t0, $zero
+Filter_input:
+	# Transform the first '\n' in the input to a '\0', to avoid problems when opening the file with the same name
+	lbu $t1, textfile($t0) 	 # Loads the current char into $t1
+	beq $t1, '\n', correct	 # Check if $t1 equals '\n'
+	beq $t1, $zero, continue # Check if $t1 equals '\0'
+	addi $t0, $t0, 1	 # Iterate index
+	bne $t1, $zero, Filter_input # Go back to get other char
+	
+correct:
+	sw $zero, textfile($t0)
+	
+continue:
+		
 	# Abertura do arquivo onde sera escrito o dicionario
 	li $v0, 13		# Código do open file
 	la $a0, dictionary	# Label do arquivo a ser escrito
