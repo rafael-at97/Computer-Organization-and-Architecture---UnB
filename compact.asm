@@ -69,7 +69,6 @@ Fecha_Arquivos: # Fecha os arquivos usados no programa DEVES-SE mover para $a0 T
 	li $v0, 16	# Código para fechar arquivo
 	move $a0, $s0	# Descritor do arquivo que será fechado
 	syscall
-	# Quando se chama o syscall acho que ele tambem altera $v0, verificar isso
 	move $a0, $s1	# Descritor do arquivo que será fechado
 	syscall
 
