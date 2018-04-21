@@ -1,15 +1,30 @@
 .data
 	
 	# O nome do arquivo sera lido da linha de comando, esse arquivo em baixo servira apenas como teste
-	arquivotexto: .asciiz "arquivotexto.txt"# Nome do arquivo com o texto a ser compactado
+	arquivotexto: .space 15 # Nome do arquivo com o texto a ser compactado
 	dicionario: .asciiz "dicionario.txt"	# Nome do arquivo com o dicionário
 	# Ambos os buffers declarados abaixo serão dinâmicos, logo, sua declaração no .data deve tomar esse cuidado
 	buffer_auxiliar: .asciiz ""		# Buffer para a leitura individual de cada caractere do arquivo a ser compactado
 	buffer_de_comparação: .asciiz ""	# Buffer que vai concatenando os caracteres lidos e usado para comparar com os valores do dicionario
-	
+	message: .asciiz "Nome do arquivo a ser lido"	# Teste de mensagem display para o usuario passar parametros
 .text
 	
 Abre_Arquivos: # Abre os arquivos textos que serão necessários no programa
+	
+	# Leitura do nome do arquivo que sera lido
+	# li $v0, 8
+	# la $a0, arquivotexto
+	# li $a1, 15 # Serão lidos n-1 caracteres, reservando o ultimo para \0
+	# syscall
+	
+	# Para evitar gastar muita memória, a string que será mostrada ao usuário será salva na pilha e depois retirada
+	
+	# Outro metodo de input do nome do arquivo, estou procurando um jeito da string "message" ser temporaria
+	li $v0, 54
+	la $a1, arquivotexto
+	li $a2, 15
+	la $a0, message
+	syscall
 	
 	# Abertura do arquivo onde sera escrito o dicionario
 	li $v0, 13		# Código do open file
