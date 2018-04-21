@@ -1,15 +1,33 @@
 .data
-	
-	# O nome do arquivo sera lido da linha de comando, esse arquivo em baixo servira apenas como teste
-	arquivotexto: .asciiz "arquivotexto.txt"# Nome do arquivo com o texto a ser compactado
-	dicionario: .asciiz "dicionario.txt"	# Nome do arquivo com o dicionário
-	# Ambos os buffers declarados abaixo serão dinâmicos, logo, sua declaração no .data deve tomar esse cuidado
-	buffer_auxiliar: .asciiz ""		# Buffer para a leitura individual de cada caractere do arquivo a ser compactado
-	buffer_de_comparação: .asciiz ""	# Buffer que vai concatenando os caracteres lidos e usado para comparar com os valores do dicionario
-	
+	textfile: .space 20 			## Name of the file to be compressed, the last char is reserved to '\0', so
+						## the name can be at most 19 chars long. Test if we can include the path
+						## in the name of the file, because it is only found in the same folder as the
+						## Mars.jar application 
+	dictionary: .asciiz "dictionary.txt"	# Name of the file that contains the dictionary created during the compression
+						# Dictionary style: [index(.word) -> string(.asciiz with the last one being '\0')]
+	# Both the buffers will be dynamic, especial care must be taken to avoid overwriting other values
+	buffer_aux: .asciiz ""			# Buffer that holds a single char read from the textfile
+	buffer_de_comp: .asciiz ""		## Buffer that concatenates chars and compares the resulting string with the ones
+						## in the dictionary
+	message: .asciiz "Nome do arquivo a ser lido"	# Test message
 .text
 	
-Abre_Arquivos: # Abre os arquivos textos que serão necessários no programa
+Abre_Arquivos: # Open the necessary files
+	
+	# Reading of the textfile name
+	# li $v0, 8
+	# la $a0, textfile
+	# li $a1, 15 # n-1 chars will be read, the last one is reserved for '\0'
+	# syscall
+	
+	# We must look for a way that the string "message" is only temporary, avoiding extra memory usage
+	
+	# Another method of reading the textfile name
+	li $v0, 54
+	la $a1, textfile
+	li $a2, 20 	# n-1 chars will be read, the last one is reserved for '\0'
+	la $a0, message
+	syscall
 	
 	# Abertura do arquivo onde sera escrito o dicionario
 	li $v0, 13		# Código do open file
@@ -20,6 +38,7 @@ Abre_Arquivos: # Abre os arquivos textos que serão necessários no programa
 	move $s1, $v0		# Guarda o descritor do arquivo
 	
 	# Fazer a verificacao de abertura correta
+	beq $s1, -1, Fim
 	
 	# Abertura do arquivo que sera lido e compactado
 	li $v0, 13		# Código do open file
@@ -30,6 +49,7 @@ Abre_Arquivos: # Abre os arquivos textos que serão necessários no programa
 	move $s0, $v0		# Guarda o descritor do arquivo
 	
 	# Fazer a verificacao de abertura correta
+	beq $s0, -1, Fim
 	
 	la $t1, buffer_de_comparação($zero) # Põe em $t1 o endereço do buffer_de_comparação, serve para concatenar os chars nele
 	
@@ -74,5 +94,5 @@ Fecha_Arquivos: # Fecha os arquivos usados no programa DEVES-SE mover para $a0 T
 
 Fim: # Finaliza o programa
 	
-	li $v0, 16 # Código para finalizar o programa
+	li $v0, 10 # Código para finalizar o programa
 	syscall
