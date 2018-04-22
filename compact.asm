@@ -7,12 +7,12 @@
 						# Dictionary style: [index(.word) -> string(.asciiz with the last one being '\0')]
 	# Both the buffers will be dynamic, especial care must be taken to avoid overwriting other values
 	buffer_aux: .asciiz ""			# Buffer that holds a single char read from the textfile
-	buffer_de_comp: .asciiz ""		## Buffer that concatenates chars and compares the resulting string with the ones
+	buffer_comp: .asciiz ""			## Buffer that concatenates chars and compares the resulting string with the ones
 						## in the dictionary
-	message: .asciiz "Nome do arquivo a ser lido"	# Test message
+	message: .asciiz "Nome do arquivo a ser lido"	# Test message,okay to be overwritten
 .text
 	
-Abre_Arquivos: # Open the necessary files
+Open_Files: # Open the necessary files
 	
 	# Reading of the textfile name
 	# li $v0, 8
@@ -29,8 +29,12 @@ Abre_Arquivos: # Open the necessary files
 	la $a0, message
 	syscall
 	
-	# Print a message in case the reading was not successful
-	bne $a1, $zero, Fim
+	# Print a message in case the reading was not successful, to do
+	bne $a1, $zero, End
+	
+	# The dictionary to store the pairs of keys and contents will be stored in the dynamic area, so, we will use $gp
+	# The dictionary start will be $gp and the counter will be $s7
+	move $s7, $zero
 	
 	move $t0, $zero
 Filter_input:
@@ -39,13 +43,14 @@ Filter_input:
 	beq $t1, '\n', correct	 # Check if $t1 equals '\n'
 	beq $t1, $zero, continue # Check if $t1 equals '\0'
 	addi $t0, $t0, 1	 # Iterate index
-	bne $t1, $zero, Filter_input # Go back to get other char
+	j Filter_input # Go back to get other char
 	
 correct:
 	sw $zero, textfile($t0)
 	
 continue:
-		
+
+	# I think the dictionary does not need to be open now, we could open it only in the end and write to it only once
 	# Abertura do arquivo onde sera escrito o dicionario
 	li $v0, 13		# Código do open file
 	la $a0, dictionary	# Label do arquivo a ser escrito
@@ -55,49 +60,101 @@ continue:
 	move $s1, $v0		# Guarda o descritor do arquivo
 	
 	# Fazer a verificacao de abertura correta
-	beq $s1, -1, Fim
+	beq $s1, -1, End
 	
-	# Abertura do arquivo que sera lido e compactado
-	li $v0, 13		# Código do open file
-	la $a0, textfile	# Label do arquivo a ser lido
+	# File to be compressed
+	li $v0, 13		# Open file code
+	la $a0, textfile	# Label	of the file
 	li $a1, 0		# flag 0
-	li $a2, 0		# Modo de leitura
-	syscall			# Abre o arquivo texto a ser compactado
-	move $s0, $v0		# Guarda o descritor do arquivo
+	li $a2, 0		# Reading mode
+	syscall			# Effectively open the file
+	move $s0, $v0		# Save the file descriptor in $s0
 	
-	# Fazer a verificacao de abertura correta
-	beq $s0, -1, Fim
+	# Possible error during opening file verification
+	beq $s0, -1, End
+
+	la $t1, buffer_comp($zero) # Loads into $t1 the adress of buffer_comp, used to concatenate chars, it start with the empty string ''
 	
-	la $t1, buffer_de_comp($zero) # Põe em $t1 o endereço do buffer_de_comparação, serve para concatenar os chars nele
-	
-Pega_proximo: # Põe em buffer_auxiliar o proximo caractere a ser lido do arquivo original
-	
-	li $v0, 14		# Código do read file
-	move $a0, $s0		# Descritor do arquivo a ser lido
-	la $a1, buffer_aux	# Onde o caractere lido será salvo
-	li $a2, 1		# Número de caracteres a ser lido
+	add $t0, $zero, $zero	# Works like a counter to the buffer
+Get_next: # Insert into buffer_comp the next char read
+	li $v0, 14		 # Read file code
+	move $a0, $s0		 # File descriptor
+	la $a1, buffer_comp($t0) # Where the char will be saved
+	li $a2, 1		 # Number of chars to be read
 	syscall
+	addi $t0, $t0, 1	 # Increment the index to get next position
 	
-Concatena: # Concatena o caractere lido do arquivo texto no buffer de comparação
+	beq $v0, $zero, Fecha_Arquivos
 	
-	lb $t2, 0($a1)			# Põe em $t2 o caractere atual do buffer auxiliar 
-	sb $t2, 0($t1)			# salva o caractere de $t2 no buffer de comparação
-	addi $t1, $t1, 1		# Seta o ponteiro axiliar $t1 para uma posição na memória a frente (para não sobre-escrever)
-	bne $v0, $zero, Pega_proximo	# Se a leitura do arquivo texto não for EOF leia mais um
+	# Compare the string starting in buffer_comp($zero) and ending into buffer_comp($t0) with the strings in the dictionary
+	move $t1, $zero		# Iterator for the dictionary
+	move $t2, $gp		# Declare iterator for the strings in the dictionary
+	move $t3, $zero		# Declare iterator for the string in the buffer	 
+Compare:
+	beq $t1, $s7, add_dictionary	# No match found, insert into dictionary
+	# Jump the index .word
+	addi $t2, $t2, 4 
+	j keep_cmp
+
+add_dictionary:
+	# $t2 will already be in the position to store
+	addi $s7, $s7, 1 # The key for the new string to be inserted
+	sw $s7, 0($t2)
+	addi $t2, $t2, 4
+	move $t3, $zero # Iterator for the buffer string
+repeat:	
+	lb $t4, buffer_comp($t3)
+	sb $t4, 0($t2)
+	addi $t3, $t3, 1
+	addi $t2, $t2, 1
+	bne $t3, $t0, repeat
+	sb $zero, 0($t2) # End the string with a '\0'
+	move $t0, $zero # Reset buffer
+	j Get_next
+
+keep_cmp:
+	lb $t4, 0($t2)		 # Char from the dictionary
+	lb $t5, buffer_comp($t3) # Char from the buffer
 	
-	############### aqui deve ser um branch diferente. Coloquei esse pois era um jeito fácil para ver se o resto estava funcionando
-	############### deve-se comparar o que se tem no buffer de comparação com nossos valores do dicionário e fazer o fluxo do algoritmo
-	############### 
+	bne $t4, $t5, diff	 # If different, do not continue
+	# If they are equals, just read next byte
+	addi $t2, $t2, 1
+	addi $t3, $t3, 1
+	j keep_cmp
 	
-#Checa_dicionario: que tal abrir um outro arquivo para leitura de dicionário para realizar a checagem das chaves e valores?
-		 # acho que o dicionario deve ser salvo na pilha de gp ou sp enquanto é realizada a compactação do arquivo e só
-		 # depois deve ser salvo no arquivo, assim a gente pode checar as chaves mais facilmente
+diff:
+	beq $t3, $t0, check_ending # Check the ending	
+	# If it was not the end, just read dictionary until a '\0' is found and then go to next pair
+not_found:
+	beq $t4, $zero, reset_and_next
+	addi $t2, $t2, 1
+	lb $t4, 0($t2)
+	j not_found
+reset_and_next:
+	move $t3, $zero  # Reset buffer counter
+	addi $t1, $t1, 1 # Increment 1 into the dictionary pair position
+	sub $t9, $t2, $gp # Get relative distance from position to start of dictionary
+	addi $t8, $zero, 4
+	div $t9, $t8
+	mfhi $t9	  # Get the remainder of the divison
+	sub $t9, $t8, $t9 # Bytes necessary to jump
+	add $t2, $t2, $t9 # Go to next index
+	j Compare
+	
+check_ending:
+	# If the dictionary's current char is '\0', it is a match
+	beq $t4, $zero, match
+	j not_found
+match:
+	# If there is a match, simply go back to reading another char for the buffer and store the dictionary position
+	move $v1, $t1
+	j Get_next
 
 Escreve_Arquivo: # Escreve no arquivo dicionário o que estiver no buffer_de_comparação
 
 	li $v0, 15			# Código para escrita em arquivo
 	move $a0, $s1			# Descritor do arquivo a ser escrito
-	la $a1, buffer_de_comp		# Dado a ser escrito 
+	la $a1, buffer_comp		# Dado a ser escrito 
 	li $a2, 42			# Esse valor tem q ser correspondente ao tamanho a ser escrito (42 era o exemplo que estava testando)
 	syscall
 	
@@ -109,7 +166,7 @@ Fecha_Arquivos: # Fecha os arquivos usados no programa DEVES-SE mover para $a0 T
 	move $a0, $s1	# Descritor do arquivo que será fechado
 	syscall
 
-Fim: # Finaliza o programa
+End: # Kills the program
 	
-	li $v0, 10 # Código para finalizar o programa
+	li $v0, 10 # Syscall code to end program
 	syscall
