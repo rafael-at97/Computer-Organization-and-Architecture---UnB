@@ -47,7 +47,7 @@ Filter_input:
 	j Filter_input # Go back to get other char
 	
 correct:
-	sw $zero, textfile($t0)
+	sb $zero, textfile($t0)
 	
 continue:
 ######
