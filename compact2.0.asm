@@ -175,7 +175,7 @@ start_printing:
 	add $t6,$t6,1
 	jal int_to_ascii	# Convert integer key into equivalent ascii	
 	
-	addi $t4, $zero, 40 	# 40 is ascii label for "("
+	addi $t4, $zero, 123 	# 40 is ascii label for "{"
 	sb $t4, 0($t1)		
 	addi $t1, $t1, 1	
 	addi $t2, $t2, 4	# After the dictionary key we want it's content
@@ -189,13 +189,13 @@ next_byte:
 	lb $t4, 0($t2)		
 	bne $t4, $zero, next_byte # If the byte is \0, than we reached the end		
 
-	addi $t4, $zero, 41 	# 41 is ascii label for ")"
+	addi $t4, $zero, 125 	# 41 is ascii label for "}"
 	sb $t4, 0($t1)	
 	
 	jal normalize
 	
 	
-	add $t5, $t5, 2 	# In adition of all chacters we added to the buffer we have the key and "( )"
+	add $t5, $t5, 2 	# In adition of all chacters we added to the buffer we have the key and "{ }"
 	add $t5, $t5, $t7 	# $t7 stores how many chars was stored in the buffer for each key
 
 	li $v0, 15			# Write on file code
