@@ -10,6 +10,7 @@
 	buffer_comp: .asciiz ""			## Buffer that concatenates chars and compares the resulting string with the ones
 						## in the dictionary
 	message: .asciiz "Nome do arquivo a ser lido"	# Show message,okay to be overwritten
+	bufferITOA: .space 8			# This Buffer is necessary to convert integer to ascii
 .text
 	
 	## Details of what the variables are used for ##
@@ -145,6 +146,12 @@ match:
 # Write the dictionary file.txt from gp area of data
 write_dictionary:
 	
+	# $t2 = iterates in gp area of memory 							
+	# $t6 = how many keys have we printed so far, it needs to be equal $s7 to finish	
+	# $t1 = stores the addres, and iterate in the buffer who will write in the archive	
+	# $t5 = how many chars we will write per syscall					
+	# $t4 = stores which content will be stored in the buffer per time 
+	
 	# Open file where the dictionary will be saved
 	li $v0, 13		# Open file code
 	la $a0, dictionary	# Label of the file
@@ -161,14 +168,12 @@ write_dictionary:
 	move $t6, $zero		# $t6 will count how many keys of the dictionary it have already printed
 
 start_printing:	
-	la $t1, buffer_comp 	# Buffer where the characters will be saved to print in the dictionary file
+	la $t1, buffer_comp 	# Buffer where the characters will be saved to print in the dictionary file	
 	move $t5, $zero 	# $t5 stores how many characters it will print in the file, this is necessery for syscall
-	
+		
 	lw $t0, 0($t2)		# Starts with the dictionary key 
-	add $t6,$t6,1		
-	add $t0, $t0, 48	# Ascii formatation requires to sum 48 in a number to effectively print the number WRONG!!!!!!!!!!!!!
-	sb $t0, 0($t1)		# Save the byte in the buffer_comp
-	addi $t1, $t1, 1	# Iterate in the buffer
+	add $t6,$t6,1
+	jal int_to_ascii	# Convert integer key into equivalent ascii	
 	
 	addi $t4, $zero, 40 	# 40 is ascii label for "("
 	sb $t4, 0($t1)		
@@ -189,7 +194,9 @@ next_byte:
 	
 	jal normalize
 	
-	add $t5, $t5, 3 # In adition of all chacters we added to the buffer we have the key and "( )"
+	
+	add $t5, $t5, 2 	# In adition of all chacters we added to the buffer we have the key and "( )"
+	add $t5, $t5, $t7 	# $t7 stores how many chars was stored in the buffer for each key
 
 	li $v0, 15			# Write on file code
 	la $a1, buffer_comp 		# From where it will be written
@@ -199,7 +206,37 @@ next_byte:
 	 
 	bne $s7, $t6, start_printing	# If there are more keyes in the dictionary do it again
 	j close_archives
+
+int_to_ascii:
+	# Function necessary because write file syscall only understands ascii
+	la $t7, bufferITA
+	addi $t3, $t7, 8
+	move $t9, $0
+	move $t7, $0
 	
+convert_int_ascii:
+	# Function that effectively convert integer into ascii
+	beq $t0, 0, fim
+	div $t0, $t0, 10
+	mfhi $t8
+	move $t4,$t8
+	addi $t4, $t4, 48
+	sb $t4 0($t3)
+	addi $t3,$t3,-1
+	addi $t9, $t9, 1
+	addi $t7, $t7, 1
+	j convert_int_ascii
+	
+write_converted_int:
+	# Write into buffer the converted integer
+	addi $t3, $t3, 1
+	lb $t4, 0($t3)
+	sb $t4, 0($t1) 
+	addi $t1, $t1, 1
+	addi $t9, $t9 -1
+	bne $t9, 0 , fim
+	jr $ra	
+
 normalize:
 	
 	sub $t9, $t2, $gp # Get relative distance from position to start of dictionary
