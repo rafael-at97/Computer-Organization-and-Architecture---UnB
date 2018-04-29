@@ -209,14 +209,14 @@ next_byte:
 
 int_to_ascii:
 	# Function necessary because write file syscall only understands ascii
-	la $t7, bufferITA
+	la $t7, bufferITOA
 	addi $t3, $t7, 8
 	move $t9, $0
 	move $t7, $0
 	
 convert_int_ascii:
 	# Function that effectively convert integer into ascii
-	beq $t0, 0, fim
+	beq $t0, 0, write_converted_int
 	div $t0, $t0, 10
 	mfhi $t8
 	move $t4,$t8
@@ -234,7 +234,7 @@ write_converted_int:
 	sb $t4, 0($t1) 
 	addi $t1, $t1, 1
 	addi $t9, $t9 -1
-	bne $t9, 0 , fim
+	bne $t9, 0 , write_converted_int
 	jr $ra	
 
 normalize:
