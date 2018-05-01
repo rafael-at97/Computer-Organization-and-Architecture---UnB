@@ -171,7 +171,8 @@ start_printing:
 	la $t1, buffer_comp 	# Buffer where the characters will be saved to print in the dictionary file	
 	move $t5, $zero 	# $t5 stores how many characters it will print in the file, this is necessary for syscall
 		
-	lw $t0, 0($t2)		# Starts with the dictionary key 
+	lw $t0, 0($t2)		# The first value is the string length
+	add $t5, $t5, $t0
 	add $t6, $t6, 1
 	jal int_to_ascii	# Convert integer key into equivalent ascii	
 	
@@ -182,7 +183,6 @@ start_printing:
 
 	lb $t4, 0($t2)		# Pickup the first byte 
 next_byte:
-	addi $t5, $t5, 1 	# Add one in counter for characters to print
 	sb $t4, 0($t1)		
 	addi $t1, $t1, 1	
 	addi $t2, $t2, 1	# Next content byte
@@ -209,10 +209,10 @@ next_byte:
 
 int_to_ascii:
 	# Function necessary because write file syscall only understands ascii
-	la $t7, bufferITOA
-	addi $t3, $t7, 8 # Save the end of the bufferITOA (This should be 7)
-	move $t9, $0	 # What is this used for?
-	move $t7, $0	 # What is this used for?
+	la $t3, bufferITOA
+	addi $t3, $t3, 8 # Save the end of the bufferITOA (This should be 7)
+	move $t0, $t6	 # Move to $t0 which key will be converted to ascii	
+	move $t9, $0	 # Stop condition for the write_converted_int function
 	
 convert_int_ascii:
 	# Function that effectively convert integer into ascii
@@ -223,19 +223,20 @@ convert_int_ascii:
 	addi $t4, $t4, 48		# Add 48 so we go to the ascii table position equivalent of the digit
 	sb $t4, 0($t3)			# Save the digit into the first byte of $t3, that is the end of the buffer to be printed
 	addi $t3, $t3, -1		# Decrease $t3 to store now in another position
-	addi $t9, $t9, 1		# Why?
-	addi $t7, $t7, 1		# Why?
+	addi $t9, $t9, 1		# At the end of this loop $t9 will store how many chars it need to print to compose the key 
 	j convert_int_ascii		# Go back
 	
-write_converted_int:
+write_converted_int: 		
 	# Write into buffer the converted integer
-	addi $t3, $t3, 1		 # Increase $t3 back to the position of the first digit to be printed
-	lb $t4, 0($t3)			 # Saves into $t4 the char to be printed
-	sb $t4, 0($t1) 			 # Saves the char to be printed in the buffer
-	addi $t1, $t1, 1		 # Increase the position of the buffer
-	addi $t9, $t9, -1		 # Decrease $t9 for some reason
-	bne $t9, 0 , write_converted_int # While $t9 is not zero, continue
-	jr $ra				 # Goes back to the first function
+	move $t7, $t9		# Save how many chars we stored in the buffer, needed for syscall
+loop_wci:
+	addi $t3, $t3, 1	# Increase $t3 back to the position of the first digit to be printed
+	lb $t4, 0($t3)		# Saves into $t4 the char to be printed
+	sb $t4, 0($t1) 		# Saves the char to be printed in the buffer
+	addi $t1, $t1, 1	# Increase the position of the buffer
+	addi $t9, $t9, -1	# Decrease $t9 for some reason
+	bne $t9, 0 , loop_wci	# While $t9 is not zero, continue
+	jr $ra			# Goes back to the first function
 
 normalize:
 	
