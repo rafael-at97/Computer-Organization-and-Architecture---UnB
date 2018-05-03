@@ -1,14 +1,42 @@
 .data
-	uncompressed_file: .ascii "uncompressed_file.txt\0"
-	compacted_file: .ascii "arquivotexto.lzw\0"
-	dictionary: 	.ascii "dictionary.txt\0"
-	
-	
+	uncompressed_file: .asciiz "uncompressed_file.txt\0"
+	compacted_file: .space 20
+	dictionary: 	.asciiz "dictionary.txt\0"
+	error_msg: .asciiz "Erro ao abrir arquivo!" # Error message to be displayed.
 	buffer1: .space 1	# Buffer that will store one byte
-	buffer2: .ascii ""	# Buffer that will store a string to be written in the uncompressed_file
-	
+	buffer2: .asciiz ""	# Buffer that will store a string to be written in the uncompressed_file
+	buffer: .asciiz "Nome do arquivo a ser descompactado:"## Buffer start with the message that will be displayed to the user,
+							      ## then it will be overwritten by buffer2			    
 .text
+
+Get_Input: # Open the necessary files
 	
+	# Java method of reading the textfile name
+	li $v0, 54
+	la $a1, compacted_file
+	li $a2, 20 	# n-1 chars will be read, the last one is reserved for '\0', remember to increase this size!!!
+	la $a0, buffer 
+	syscall
+	
+	# Print a message in case the reading was not successful and exit
+	bne $a1, $zero, Print_error
+	
+###### Just Filter the user input to remove the '\n'
+ 	
+	move $t0, $zero
+Filter_input:
+	# Transform the first '\n' in the input to a '\0', to avoid problems when opening the file
+	lbu $t1, compacted_file($t0) 	 # Loads the current char into $t1
+	beq $t1, '\n', correct	 # Check if $t1 equals '\n'
+	beq $t1, $zero, continue # Check if $t1 equals '\0'
+	addi $t0, $t0, 1	 # Iterate index
+	j Filter_input # Go back to get other char
+	
+correct:
+	sb $zero, compacted_file($t0)
+	
+continue:
+
 Open_Files:
 	
 	# Open compressed file
@@ -160,7 +188,13 @@ Close_archives:
 	syscall
 	move $a0, $s2	# Uncompressed file descriptor
 	syscall
-				
+
+Print_error:	# Print a message in case could not open a file
+	li $v0, 55
+	la $a0, error_msg
+	add $a1, $zero, $zero
+	syscall
+
 End: # Kills the program 
 	
 	li $v0, 10 # Syscall code to end program
