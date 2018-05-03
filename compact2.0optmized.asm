@@ -15,7 +15,7 @@
 	li $v0, 16		# Close file syscall code
 	move $a0, %descriptor	# File descriptor
 	syscall 		
-.end_macro		
+.end_macro
 							    							    					    							    
 .text
 	
@@ -165,13 +165,10 @@ reset_and_next:
 	add $s3, $s3, $s5 # Jump to the address right after the end of the string
 	
 	### Routine necessary to go to the next pair
-	sub $t0, $s3, $gp 	# Get relative distance from position to start of dictionary (Avoid extra processing in the ULA?)
-	addi $t1, $zero, 4
-	div $t0, $t1
-	mfhi $t0	  	# Get the remainder of the divison by 4
-	beq $t0, $zero, Compare # If we are already at a valid position of a .word, do not add 4 more extra
-	sub $t0, $t1, $t0 	# Bytes necessary to jump to a valid .word address
-	add $s3, $s3, $t0 	# Go to next index
+	move $a0, $s3
+	jal normalize
+	add $s3, $s3, $v0
+	
 	j Compare
 	
 check_ending:
@@ -194,7 +191,7 @@ write_compress:
 	## First, we must turn the value $v1 into a string:
 	# Move the value into a parameter
 	move $a0, $v1
-	jal int_to_asciii
+	jal int_to_ascii
 	# After, $v0 will have the address of the strig to be printed and $v1 will have the number of chars to be written 
 	# We must save the char that broke the string into the last position of bufferITOA
 	la $t0, bufferITOA
@@ -215,7 +212,7 @@ write_compress:
 	jr $ra
 ######
 
-int_to_asciii:
+int_to_ascii:
 	# Function necessary because write file syscall only understands ascii
 	la $v0, bufferITOA
 	addi $v0, $v0, 7 # Save the address of the last char representing the index in the bufferITOA
@@ -223,7 +220,7 @@ int_to_asciii:
 	move $v1, $zero	 # Number of chars that will be written, start with zero
 	beq $t0, $zero, back_zero # If the key is 0, just go to a special case to avoid the division
 	
-convert_int_asciii:
+convert_int_ascii:
 	# Function that effectively convert integer into ascii
 	div $t0, $t0, 10 		# Divide by 10 so we can get the remainder and get a single digit at a time
 	mfhi $t1			# HI holds the remainder, saved now in $t1
@@ -231,7 +228,7 @@ convert_int_asciii:
 	sb $t1, 0($v0)			# Save the digit into the 'last' byte of $v0, that is the end of the buffer to be printed
 	addi $v0, $v0, -1		# Decrease $v0 to store now in another position
 	addi $v1, $v1, 1		# At the end of this loop $v1 will store how many chars it needs to print to compose the key
-	bne $t0, $zero, convert_int_asciii	# If $t0, that holds the current key, is zero, meaning that there are no more divisions to be made, exit the method
+	bne $t0, $zero, convert_int_ascii	# If $t0, that holds the current key, is zero, meaning that there are no more divisions to be made, exit the method
 	
 	addi $v0, $v0, 1 		# Return $v0 to the correct position, start of the bufferITOA that will be printed	
 	jr $ra
@@ -240,7 +237,20 @@ back_zero:
 	sb $t0, 0($v0)		# Save this char into the correct position of the bufferITOA
 	addi $v1, $v1, 1	# Indicates that there is onde char to be written	
 	jr $ra			# Go back to callee
-			
+
+######
+
+normalize:
+	move $v0, $zero		  # Start $v0 with zero
+	sub $t0, $a0, $gp 	  # Get relative distance from position to start of dictionary (Avoid extra divison on ULA?)
+	addi $t1, $zero, 4
+	div $t0, $t1
+	mfhi $t0	 	  # Get the remainder of the divison
+	beq $t0, $zero, jump_back # If we are already at a valid position of a .word, do not add 4 more extra
+	sub $v0, $t1, $t0 	  # Return the bytes necessary to jump
+jump_back:	
+	jr $ra
+
 ######
 
 # Check if we have to write the last string
@@ -262,20 +272,16 @@ Check_last_string:
 
 	## 	Details of what the variables are used for in the 2nd part	       ##
 	# $s0 = used to store the descriptor of the dictionary				#
-	# $s1 = used to store the descriptor of the compressed file			#
+	# $s1 = Iterates through the dictionary (gp area of memory)			#
 	# $s2 = The main counter of the buffer						#
-	# $s3 = Iterator for the strings in the dictionary				#
+	# $s3 = How many chars we will write per syscall				#
 	# $s4 = Auxiliar counter for the buffer						#
 	# $s5 = Saves the lenght of the string, used to jump to next pair		#
-	# $s6 = the auxiliar counter of the pairs in the dictionary			#
+	# $s6 = Stores how many keys we have already printed				#
 	# $s7 = Still used to store the size of the dictionary 	 			#
 
 # Write the dictionary dictionary.txt from gp area of data
-write_dictionary:		
-	# $t2 = iterates in gp area of memory 							
-	# $t6 = how many keys have we printed so far, it needs to be equal $s7 to finish	
-	# $t1 = stores the address, and iterate in the buffer who will write in the archive	
-	# $t5 = how many chars we will write per syscall					
+write_dictionary:										
 	# $t4 = stores which content will be stored in the buffer per time 
 	
 	# Open file where the dictionary will be saved
@@ -284,99 +290,81 @@ write_dictionary:
 	li $a1, 1		# Flag 1 to always create a new dictionary
 	li $a2, 0		# Write only mode
 	syscall			# Effectively open the file 
-	move $s1, $v0		# Save the file descriptor in $s1
+	move $s0, $v0		# Save the file descriptor in $s1
 	
 	# Possible error during opening file verification
-	beq $s1, -1, Print_error
+	beq $s0, -1, Print_error
 	
 	# Initialize the variables
-	move $t2, $gp 		# Start in the begining of the gp area 
-	move $t6, $zero		# $t6 will count how many keys of the dictionary it have already printed
+	move $s1, $gp 		# Start in the begining of the gp area 
+	move $s6, $zero		# $t6 will count how many keys of the dictionary it have already printed
 
 start_printing:	
-	la $t1, buffer	 	# Buffer where the characters will be saved to print in the dictionary file	
+	la $s2, buffer	 	# Buffer where the characters will be saved to print in the dictionary file	
 		
-	lw $t5, 0($t2)		# The first value is the string length, necessary for the syscall
-	add $t6, $t6, 1
-	jal int_to_ascii	# Convert integer key into equivalent ascii	
+	lw $s3, 0($s1)		# The first value is the string length, necessary for the syscall
+	add $s6, $s6, 1		# Increse the number of keys printed by one, necessary to print the right key
 	
-	addi $t4, $zero, 123 	# 123 is ascii label for "{"
-	sb $t4, 0($t1)		
-	addi $t1, $t1, 1	
-	addi $t2, $t2, 4	# After the dictionary key we want it's content
-
-	lb $t4, 0($t2)		# Pickup the first byte 
+	move $a0, $s6 		# Prepare the parameter to call the method
+	jal int_to_ascii	# Convert integer key into equivalent ascii,
+	# After the method call, $v0 will hold the position of the first char that represents the key and $v1 will tell how many 
+	# chars compose the key, so, we just need to call the method write_converted_in to move the chars to the right buffer
+	move $a0, $v0		# Parameters for method
+	move $a1, $v1		# Parameters for method
+	jal write_converted_int # Start the buffer that will be written with the index of the pair
+	
+	addi $t0, $zero, 123 	# 123 is ascii label for "{"
+	sb $t0, 0($s2)		
+	addi $s2, $s2, 1	
+	addi $s1, $s1, 4	# After the dictionary key we want it's content
+ 
+ 	move $t0, $s3
 next_byte:
-	sb $t4, 0($t1)		
-	addi $t1, $t1, 1	
-	addi $t2, $t2, 1	# Next content byte
-	lb $t4, 0($t2)		
-	bne $t4, $zero, next_byte # If the byte is \0, than we reached the end of this string	
+	lb $t1, 0($s1)		# Picks a char to copy
+	sb $t1, 0($s2)		# Store byte in buffer		
+	addi $s2, $s2, 1	# New position to store
+	addi $s1, $s1, 1	# Next content byte
+	addi $t0, $t0, -1	# Decrease counter of how many chars to copy		
+	bne $t0, $zero, next_byte # If the counter is 0, than we reached the end of this string	
 
-	addi $t4, $zero, 125 	# 125 is ascii label for "}"
-	sb $t4, 0($t1)	
+	addi $t0, $zero, 125 	# 125 is ascii label for "}"
+	sb $t0, 0($s2)	
+
+	add $s3, $s3, 2 	# In adition of all characters we added to the buffer we have the key and "{ }"
+	add $s3, $s3, $v1 	# $v1 still stores how many chars was stored in the buffer for each key		
 	
-	jal normalize
-	
-	
-	add $t5, $t5, 2 	# In adition of all chacters we added to the buffer we have the key and "{ }"
-	add $t5, $t5, $t7 	# $t7 stores how many chars was stored in the buffer for each key
+	# Jump $s1 to next valid position of .word
+	move $a0, $s1
+	jal normalize	  # Receives the address and returns how many bytes to jump
+	add $s1, $s1, $v0
 
 	li $v0, 15			# Write on file code
 	la $a1, buffer	 		# From where it will be written
-	move $a0, $s1			# File descriptor
-	move $a2, $t5			# Length of the string to be written
+	move $a0, $s0			# File descriptor
+	move $a2, $s3			# Length of the string to be written
 	syscall
 	 
-	bne $s7, $t6, start_printing	# If there are more keys in the dictionary do it again
+	bne $s7, $s6, start_printing	# If there are more keys in the dictionary do it again
 	j close_dictionary
 
-int_to_ascii:
-	# Function necessary because write file syscall only understands ascii
-	la $t3, bufferITOA
-	addi $t3, $t3, 8 # Save the end of the bufferITOA (This should be 7)
-	move $t0, $t6	 # Move to $t0 which key will be converted to ascii	
-	move $t9, $0	 # Stop condition for the write_converted_int function
-	
-convert_int_ascii:
-	# Function that effectively convert integer into ascii
-	beq $t0, 0, write_converted_int	# If $t0, that holds the current index, is zero, meaning that there are no more divisions to be made, write the converted int
-	div $t0, $t0, 10 		# Divide by 10 so we can get the remainder and get a single digit at a time
-	mfhi $t8			# HI holds the remainder, saved now in $t8
-	move $t4,$t8			# Save into $t4 the digit to be printed
-	addi $t4, $t4, 48		# Add 48 so we go to the ascii table position equivalent of the digit
-	sb $t4, 0($t3)			# Save the digit into the first byte of $t3, that is the end of the buffer to be printed
-	addi $t3, $t3, -1		# Decrease $t3 to store now in another position
-	addi $t9, $t9, 1		# At the end of this loop $t9 will store how many chars it need to print to compose the key 
-	j convert_int_ascii		# Go back
-	
-write_converted_int: 		
+write_converted_int:
 	# Write into buffer the converted integer
-	move $t7, $t9		# Save how many chars we stored in the buffer, needed for syscall
+	move $t0, $a0		# Address of chars to be copied
+	move $t1, $a1		# How many chars to be copied
 loop_wci:
-	addi $t3, $t3, 1	# Increase $t3 back to the position of the first digit to be printed
-	lb $t4, 0($t3)		# Saves into $t4 the char to be printed
-	sb $t4, 0($t1) 		# Saves the char to be printed in the buffer
-	addi $t1, $t1, 1	# Increase the position of the buffer
-	addi $t9, $t9, -1	# Decrease $t9 for some reason
-	bne $t9, 0 , loop_wci	# While $t9 is not zero, continue
-	jr $ra			# Goes back to the first function
-
-normalize:
-	
-	sub $t9, $t2, $gp # Get relative distance from position to start of dictionary
-	addi $t8, $zero, 4
-	div $t9, $t8
-	mfhi $t9	  # Get the remainder of the divison
-	sub $t9, $t8, $t9 # Bytes necessary to jump
-	add $t2, $t2, $t9 # Go to next index
-	jr $ra
+	lb $t2, 0($t0)		# Loads into $t2 the char to be copied
+	sb $t2, 0($s2) 		# Saves the char to be printed in the buffer
+	addi $s2, $s2, 1	# Increase the position of the buffer
+	addi $t1, $t1, -1	# Decrease counter of how many chars to copy
+	addi $t0, $t0, 1	# To get next char
+	bne $t1, 0 , loop_wci	# While counter is not zero, continue
+	jr $ra			# Goes back to the callee
 
 ###### 
 
 # Closes the dictionary file
 close_dictionary:
-	close_file $s1
+	close_file $s0
 	j End
 
 Print_error:	# Print a message in case could not open a file

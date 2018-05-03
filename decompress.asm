@@ -1,6 +1,6 @@
 .data
 	uncompressed_file: .ascii "uncompressed_file.txt\0"
-	compacted_file: .ascii "compacted_file.txt\0"
+	compacted_file: .ascii "arquivotexto.lzw\0"
 	dictionary: 	.ascii "dictionary.txt\0"
 	
 	
