@@ -317,7 +317,7 @@ start_printing:
 	move $a1, $v1		# Parameters for method
 	jal write_converted_int # Start the buffer that will be written with the index of the pair
 	
-	addi $t0, $zero, 123 	# 123 is ascii label for "{"
+	addi $t0, $zero, 126 	# 126 is ascii label for "~"
 	sb $t0, 0($s2)		
 	addi $s2, $s2, 1	
 	addi $s1, $s1, 4	# After the dictionary key we want it's content
@@ -331,7 +331,7 @@ next_byte:
 	addi $t0, $t0, -1	# Decrease counter of how many chars to copy		
 	bne $t0, $zero, next_byte # If the counter is 0, than we reached the end of this string	
 
-	addi $t0, $zero, 125 	# 125 is ascii label for "}"
+	addi $t0, $zero, 126 	# 126 is ascii label for "~"
 	sb $t0, 0($s2)	
 
 	add $s3, $s3, 2 	# In adition of all characters we added to the buffer we have the key and "{ }"
