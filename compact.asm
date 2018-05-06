@@ -9,7 +9,10 @@
 	error_msg: .asciiz "Erro ao abrir arquivo!" # Error message to be displayed.
 	buffer: .asciiz "Nome do arquivo a ser compactado:" ## Buffer start with the message that will be displayed to the user,
 							    ## then it will concatenate chars and compare the resulting string with
-							    ## the ones in the dictionary					    
+							    ## the ones in the dictionary
+	buffer_space: .space 100		# Increase the buffer size possible to 133 bytes
+	dict_mem: .word 0			# The start of the memory area of the dictionary, declared as a .word because it's
+						# start needs to be aligned with a .word			    					    
 
 .macro close_file %descriptor
 	li $v0, 16		# Close file syscall code
@@ -95,8 +98,8 @@ Open_Files:
 
 ###### Part where the program will continually read the file to be compressed and write the results in the compressed file
 
-	# The dictionary to store the pairs of keys and contents will be stored in the dynamic area, so, we will use $gp
-	# The dictionary start will be $gp and the counter of how many pairs it have will be $s7
+	# The dictionary to store the pairs of keys and contents will be stored starting in the 'dict_mem' section of .data
+	# The dictionary start will be 'dict_mem' and the counter of how many pairs it have will be $s7
 	move $s7, $zero	# Size of the dictionary initially zero
 	move $s2, $zero	# Works like a counter to the buffer
 	move $v1, $zero	# Start the index to be written in the compressed file as zero
@@ -114,7 +117,7 @@ Get_next: # Insert into buffer the next char read
 	beq $v0, $zero, Check_last_string # If reached EOF, and $s2 is not zero, we must save the string that was last read
 	
 	# Compare the string starting in buffer_comp($zero) and ending into buffer_comp($s2) with the strings in the dictionary
-	move $s3, $gp		# Declare iterator for the memory of the dictionary
+	la $s3, dict_mem	# Declare iterator for the memory of the dictionary
 	move $s4, $zero		# Declare iterator for the string in the buffer	 
 	move $s6, $zero		# Iterator for the pairs in the dictionary
 Compare:
@@ -242,7 +245,8 @@ back_zero:
 
 normalize:
 	move $v0, $zero		  # Start $v0 with zero
-	sub $t0, $a0, $gp 	  # Get relative distance from position to start of dictionary (Avoid extra divison on ULA?)
+	la $t2, dict_mem
+	sub $t0, $a0, $t2 	  # Get relative distance from position to start of dictionary (Avoid extra divison on ULA?)
 	addi $t1, $zero, 4
 	div $t0, $t1
 	mfhi $t0	 	  # Get the remainder of the divison
@@ -272,7 +276,7 @@ Check_last_string:
 
 	## 	Details of what the variables are used for in the 2nd part	       ##
 	# $s0 = used to store the descriptor of the dictionary				#
-	# $s1 = Iterates through the dictionary (gp area of memory)			#
+	# $s1 = Iterates through the dictionary (dict_mem area of memory)		#
 	# $s2 = The main counter of the buffer						#
 	# $s3 = How many chars we will write per syscall				#
 	# $s4 = Auxiliar counter for the buffer						#
@@ -280,7 +284,7 @@ Check_last_string:
 	# $s6 = Stores how many keys we have already printed				#
 	# $s7 = Still used to store the size of the dictionary 	 			#
 
-# Write the dictionary dictionary.txt from gp area of data
+# Write the dictionary dictionary.txt from dict_mem area of data
 write_dictionary:										
 	# $t4 = stores which content will be stored in the buffer per time 
 	
@@ -296,7 +300,7 @@ write_dictionary:
 	beq $s0, -1, Print_error
 	
 	# Initialize the variables
-	move $s1, $gp 		# Start in the begining of the gp area 
+	la $s1, dict_mem 		# Start in the begining of the dictionary memory area 
 	move $s6, $zero		# $t6 will count how many keys of the dictionary it have already printed
 
 start_printing:	
