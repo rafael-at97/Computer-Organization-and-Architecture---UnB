@@ -137,7 +137,7 @@ Reading_loop:
 	syscall
 	
 	lb $t1, 0($a1)
-	beq $t1, 123, acabou_numero
+	beq $t1, 126, acabou_numero
 	addi $t1, $t1, -48
 	mul $t0, $t0, 10
 	add $t0, $t0, $t1
@@ -155,7 +155,7 @@ Wrong_key:
 	syscall	
 	
 	lb $t1, 0($a1)
-	beq $t1, 125, Reading_loop
+	beq $t1, 126, Reading_loop
 	j Wrong_key
 	
 After_found_key:
@@ -166,7 +166,7 @@ After_found_key:
 	syscall	
 	
 	lb $t3, 0($a1) 		# picked up the first value
-	beq $t3, 125, Finished_chars_from_key	# If it read "}" form the dictionary, it means that the value for that key finished 
+	beq $t3, 126, Finished_chars_from_key	# If it read "}" form the dictionary, it means that the value for that key finished 
 	sb $t3, 0($t5)
 	addi $t5, $t5, 1
 	j After_found_key
