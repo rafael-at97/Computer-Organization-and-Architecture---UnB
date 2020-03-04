@@ -1,0 +1,9 @@
+set_global_assignment -name IP_TOOL_NAME "ROM: 1-PORT"
+set_global_assignment -name IP_TOOL_VERSION "13.0"
+set_global_assignment -name VERILOG_FILE [file join $::quartus(qip_path) "Memoria_Instrucao.v"]
+set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) "Memoria_Instrucao.bsf"]
+set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) "Memoria_Instrucao_inst.v"]
+set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) "Memoria_Instrucao_bb.v"]
+set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) "Memoria_Instrucao.inc"]
+set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) "Memoria_Instrucao.cmp"]
+set_global_assignment -name MISC_FILE [file join $::quartus(qip_path) "Memoria_Instrucao_syn.v"]

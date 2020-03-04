@@ -1,0 +1,106 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 1991-2013 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+*/
+(header "symbol" (version "1.2"))
+(symbol
+	(rect 64 64 280 560)
+	(text "barreira_EX_MEM" (rect 5 0 105 14)(font "Arial" (font_size 8)))
+	(text "inst" (rect 8 144 25 156)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "Clock" (rect 0 0 30 14)(font "Arial" (font_size 8)))
+		(text "Clock" (rect 21 27 51 41)(font "Arial" (font_size 8)))
+		(line (pt 0 32)(pt 16 32))
+	)
+	(port
+		(pt 0 104)
+		(input)
+		(text "I_ValorPC[31..0]" (rect 0 0 90 14)(font "Arial" (font_size 8)))
+		(text "I_ValorPC[31..0]" (rect 21 99 111 113)(font "Arial" (font_size 8)))
+		(line (pt 0 104)(pt 16 104)(line_width 3))
+	)
+	(port
+		(pt 0 264)
+		(input)
+		(text "I_Zero" (rect 0 0 36 14)(font "Arial" (font_size 8)))
+		(text "I_Zero" (rect 21 259 57 273)(font "Arial" (font_size 8)))
+		(line (pt 0 264)(pt 16 264))
+	)
+	(port
+		(pt 0 184)
+		(input)
+		(text "I_ResALU[31..0]" (rect 0 0 92 14)(font "Arial" (font_size 8)))
+		(text "I_ResALU[31..0]" (rect 21 179 113 193)(font "Arial" (font_size 8)))
+		(line (pt 0 184)(pt 16 184)(line_width 3))
+	)
+	(port
+		(pt 0 344)
+		(input)
+		(text "I_Data2[31..0]" (rect 0 0 77 14)(font "Arial" (font_size 8)))
+		(text "I_Data2[31..0]" (rect 21 339 98 353)(font "Arial" (font_size 8)))
+		(line (pt 0 344)(pt 16 344)(line_width 3))
+	)
+	(port
+		(pt 0 424)
+		(input)
+		(text "I_RegDst[4..0]" (rect 0 0 79 14)(font "Arial" (font_size 8)))
+		(text "I_RegDst[4..0]" (rect 21 419 100 433)(font "Arial" (font_size 8)))
+		(line (pt 0 424)(pt 16 424)(line_width 3))
+	)
+	(port
+		(pt 216 104)
+		(output)
+		(text "O_ValorPC[31..0]" (rect -152 0 -55 14)(font "Arial" (font_size 8)))
+		(text "O_ValorPC[31..0]" (rect 109 99 206 113)(font "Arial" (font_size 8)))
+		(line (pt 216 104)(pt 200 104)(line_width 3))
+	)
+	(port
+		(pt 216 184)
+		(output)
+		(text "O_Zero" (rect -152 0 -109 14)(font "Arial" (font_size 8)))
+		(text "O_Zero" (rect 156 179 199 193)(font "Arial" (font_size 8)))
+		(line (pt 216 184)(pt 200 184))
+	)
+	(port
+		(pt 216 344)
+		(output)
+		(text "O_ResALU[31..0]" (rect -152 0 -53 14)(font "Arial" (font_size 8)))
+		(text "O_ResALU[31..0]" (rect 106 339 205 353)(font "Arial" (font_size 8)))
+		(line (pt 216 344)(pt 200 344)(line_width 3))
+	)
+	(port
+		(pt 216 264)
+		(output)
+		(text "O_Data2[31..0]" (rect -152 0 -68 14)(font "Arial" (font_size 8)))
+		(text "O_Data2[31..0]" (rect 122 259 206 273)(font "Arial" (font_size 8)))
+		(line (pt 216 264)(pt 200 264)(line_width 3))
+	)
+	(port
+		(pt 216 424)
+		(output)
+		(text "O_RegDst[4..0]" (rect -152 0 -66 14)(font "Arial" (font_size 8)))
+		(text "O_RegDst[4..0]" (rect 121 419 207 433)(font "Arial" (font_size 8)))
+		(line (pt 216 424)(pt 200 424)(line_width 3))
+	)
+	(drawing
+		(rectangle (rect 16 17 200 473))
+	)
+)

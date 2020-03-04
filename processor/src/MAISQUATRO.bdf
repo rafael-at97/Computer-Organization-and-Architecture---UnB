@@ -1,0 +1,143 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 1991-2013 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+*/
+(header "graphic" (version "1.4"))
+(pin
+	(output)
+	(rect 528 248 704 264)
+	(text "OUTPUT" (rect 1 0 39 10)(font "Arial" (font_size 6)))
+	(text "OUT[3..0]" (rect 90 0 138 12)(font "Arial" ))
+	(pt 0 8)
+	(drawing
+		(line (pt 0 8)(pt 52 8))
+		(line (pt 52 4)(pt 78 4))
+		(line (pt 52 12)(pt 78 12))
+		(line (pt 52 12)(pt 52 4))
+		(line (pt 78 4)(pt 82 8))
+		(line (pt 82 8)(pt 78 12))
+		(line (pt 78 12)(pt 82 8))
+	)
+)
+(symbol
+	(rect 360 160 392 176)
+	(text "VCC" (rect 7 0 27 10)(font "Arial" (font_size 6)))
+	(text "inst" (rect 3 5 20 17)(font "Arial" )(invisible))
+	(port
+		(pt 16 16)
+		(output)
+		(text "1" (rect 19 7 24 19)(font "Courier New" (bold))(invisible))
+		(text "1" (rect 19 7 24 19)(font "Courier New" (bold))(invisible))
+		(line (pt 16 16)(pt 16 8))
+	)
+	(drawing
+		(line (pt 8 8)(pt 24 8))
+	)
+)
+(symbol
+	(rect 400 144 432 176)
+	(text "GND" (rect 3 6 24 16)(font "Arial" (font_size 6)))
+	(text "inst2" (rect 6 -1 29 11)(font "Arial" )(invisible))
+	(port
+		(pt 16 32)
+		(output)
+		(text "1" (rect 18 0 23 12)(font "Courier New" (bold))(invisible))
+		(text "1" (rect 9 20 14 32)(font "Courier New" (bold))(invisible))
+		(line (pt 16 24)(pt 16 32))
+	)
+	(drawing
+		(line (pt 24 24)(pt 16 16))
+		(line (pt 16 16)(pt 8 24))
+		(line (pt 24 24)(pt 8 24))
+	)
+	(rotate180)
+)
+(connector
+	(pt 480 256)
+	(pt 480 264)
+	(bus)
+)
+(connector
+	(text "OUT[3..0]" (rect 490 240 538 252)(font "Arial" ))
+	(pt 528 256)
+	(pt 480 256)
+	(bus)
+)
+(connector
+	(pt 376 288)
+	(pt 376 176)
+)
+(connector
+	(pt 480 288)
+	(pt 480 576)
+	(bus)
+)
+(connector
+	(pt 416 176)
+	(pt 416 264)
+)
+(connector
+	(pt 480 264)
+	(pt 480 272)
+	(bus)
+)
+(connector
+	(pt 480 272)
+	(pt 480 280)
+	(bus)
+)
+(connector
+	(pt 480 280)
+	(pt 480 288)
+	(bus)
+)
+(connector
+	(pt 416 264)
+	(pt 416 272)
+)
+(connector
+	(pt 416 272)
+	(pt 416 280)
+)
+(connector
+	(text "OUT[0]" (rect 426 248 461 260)(font "Arial" ))
+	(pt 416 264)
+	(pt 480 264)
+)
+(connector
+	(text "OUT[1]" (rect 435 256 470 268)(font "Arial" ))
+	(pt 416 272)
+	(pt 480 272)
+)
+(connector
+	(text "OUT[2]" (rect 424 264 459 276)(font "Arial" ))
+	(pt 480 280)
+	(pt 416 280)
+)
+(connector
+	(text "OUT[3]" (rect 425 272 460 284)(font "Arial" ))
+	(pt 480 288)
+	(pt 376 288)
+)
+(junction (pt 480 264))
+(junction (pt 480 272))
+(junction (pt 480 280))
+(junction (pt 480 288))
+(junction (pt 416 264))
+(junction (pt 416 272))

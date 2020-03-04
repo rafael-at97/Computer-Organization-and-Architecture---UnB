@@ -1,0 +1,106 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 1991-2013 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+*/
+(header "symbol" (version "1.2"))
+(symbol
+	(rect 64 64 192 480)
+	(text "BarreiraIDEX_2" (rect 5 0 97 12)(font "Arial" (font_size 8)))
+	(text "inst" (rect 8 408 25 418)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "Clear" (rect 0 0 33 12)(font "Arial" (font_size 8)))
+		(text "Clear" (rect 21 27 54 39)(font "Arial" (font_size 8)))
+		(line (pt 0 32)(pt 16 32))
+	)
+	(port
+		(pt 0 72)
+		(input)
+		(text "Enable" (rect 0 0 42 12)(font "Arial" (font_size 8)))
+		(text "Enable" (rect 21 67 63 79)(font "Arial" (font_size 8)))
+		(line (pt 0 72)(pt 16 72))
+	)
+	(port
+		(pt 0 112)
+		(input)
+		(text "PC4ID[31..0]" (rect 0 0 75 12)(font "Arial" (font_size 8)))
+		(text "PC4ID[31..0]" (rect 21 107 96 119)(font "Arial" (font_size 8)))
+		(line (pt 0 112)(pt 16 112)(line_width 3))
+	)
+	(port
+		(pt 0 176)
+		(input)
+		(text "R1ID[31..0]" (rect 0 0 67 12)(font "Arial" (font_size 8)))
+		(text "R1ID[31..0]" (rect 21 171 88 183)(font "Arial" (font_size 8)))
+		(line (pt 0 176)(pt 16 176)(line_width 3))
+	)
+	(port
+		(pt 0 248)
+		(input)
+		(text "R2ID[31..0]" (rect 0 0 67 12)(font "Arial" (font_size 8)))
+		(text "R2ID[31..0]" (rect 21 243 88 255)(font "Arial" (font_size 8)))
+		(line (pt 0 248)(pt 16 248)(line_width 3))
+	)
+	(port
+		(pt 0 328)
+		(input)
+		(text "Ins[28..0]" (rect 0 0 55 12)(font "Arial" (font_size 8)))
+		(text "Ins[28..0]" (rect 21 323 76 335)(font "Arial" (font_size 8)))
+		(line (pt 0 328)(pt 16 328)(line_width 3))
+	)
+	(port
+		(pt 0 392)
+		(input)
+		(text "Clock" (rect 0 0 34 12)(font "Arial" (font_size 8)))
+		(text "Clock" (rect 21 387 55 399)(font "Arial" (font_size 8)))
+		(line (pt 0 392)(pt 16 392))
+	)
+	(port
+		(pt 128 88)
+		(output)
+		(text "PC4EX[31..0]" (rect -80 0 0 12)(font "Arial" (font_size 8)))
+		(text "PC4EX[31..0]" (rect 27 83 107 95)(font "Arial" (font_size 8)))
+		(line (pt 128 88)(pt 112 88)(line_width 3))
+	)
+	(port
+		(pt 128 136)
+		(output)
+		(text "R1EX[31..0]" (rect -80 0 -9 12)(font "Arial" (font_size 8)))
+		(text "R1EX[31..0]" (rect 36 131 107 143)(font "Arial" (font_size 8)))
+		(line (pt 128 136)(pt 112 136)(line_width 3))
+	)
+	(port
+		(pt 128 280)
+		(output)
+		(text "R2EX[31..0]" (rect -80 0 -9 12)(font "Arial" (font_size 8)))
+		(text "R2EX[31..0]" (rect 36 275 107 287)(font "Arial" (font_size 8)))
+		(line (pt 128 280)(pt 112 280)(line_width 3))
+	)
+	(port
+		(pt 128 352)
+		(output)
+		(text "Insout[28..0]" (rect -80 0 -7 12)(font "Arial" (font_size 8)))
+		(text "Insout[28..0]" (rect 34 347 107 359)(font "Arial" (font_size 8)))
+		(line (pt 128 352)(pt 112 352)(line_width 3))
+	)
+	(drawing
+		(rectangle (rect 16 16 112 408))
+	)
+)

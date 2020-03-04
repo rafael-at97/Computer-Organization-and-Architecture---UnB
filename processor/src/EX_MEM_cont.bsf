@@ -1,0 +1,148 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 1991-2013 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+*/
+(header "symbol" (version "1.2"))
+(symbol
+	(rect 16 16 264 208)
+	(text "EX_MEM_cont" (rect 5 0 93 12)(font "Arial" (font_size 8)))
+	(text "inst" (rect 8 178 25 188)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "Clock" (rect 0 0 34 12)(font "Arial" (font_size 8)))
+		(text "Clock" (rect 21 27 55 39)(font "Arial" (font_size 8)))
+		(line (pt 0 32)(pt 16 32))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "BEQi" (rect 0 0 31 12)(font "Arial" (font_size 8)))
+		(text "BEQi" (rect 21 43 52 55)(font "Arial" (font_size 8)))
+		(line (pt 0 48)(pt 16 48))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "BNEi" (rect 0 0 31 12)(font "Arial" (font_size 8)))
+		(text "BNEi" (rect 21 59 52 71)(font "Arial" (font_size 8)))
+		(line (pt 0 64)(pt 16 64))
+	)
+	(port
+		(pt 0 80)
+		(input)
+		(text "BGEZi" (rect 0 0 40 12)(font "Arial" (font_size 8)))
+		(text "BGEZi" (rect 21 75 61 87)(font "Arial" (font_size 8)))
+		(line (pt 0 80)(pt 16 80))
+	)
+	(port
+		(pt 0 96)
+		(input)
+		(text "Escreve_Mem" (rect 0 0 84 12)(font "Arial" (font_size 8)))
+		(text "Escreve_Mem" (rect 21 91 105 103)(font "Arial" (font_size 8)))
+		(line (pt 0 96)(pt 16 96))
+	)
+	(port
+		(pt 0 112)
+		(input)
+		(text "Escreve_Reg" (rect 0 0 79 12)(font "Arial" (font_size 8)))
+		(text "Escreve_Reg" (rect 21 107 100 119)(font "Arial" (font_size 8)))
+		(line (pt 0 112)(pt 16 112))
+	)
+	(port
+		(pt 0 128)
+		(input)
+		(text "PC_sel[1]" (rect 0 0 57 12)(font "Arial" (font_size 8)))
+		(text "PC_sel[1]" (rect 21 123 78 135)(font "Arial" (font_size 8)))
+		(line (pt 0 128)(pt 16 128))
+	)
+	(port
+		(pt 0 144)
+		(input)
+		(text "Jr" (rect 0 0 12 12)(font "Arial" (font_size 8)))
+		(text "Jr" (rect 21 139 33 151)(font "Arial" (font_size 8)))
+		(line (pt 0 144)(pt 16 144))
+	)
+	(port
+		(pt 0 160)
+		(input)
+		(text "Le_mem" (rect 0 0 51 12)(font "Arial" (font_size 8)))
+		(text "Le_mem" (rect 21 155 72 167)(font "Arial" (font_size 8)))
+		(line (pt 0 160)(pt 16 160))
+	)
+	(port
+		(pt 248 32)
+		(output)
+		(text "BEQo" (rect 0 0 36 12)(font "Arial" (font_size 8)))
+		(text "BEQo" (rect 191 27 227 39)(font "Arial" (font_size 8)))
+		(line (pt 248 32)(pt 232 32))
+	)
+	(port
+		(pt 248 48)
+		(output)
+		(text "BNEo" (rect 0 0 35 12)(font "Arial" (font_size 8)))
+		(text "BNEo" (rect 192 43 227 55)(font "Arial" (font_size 8)))
+		(line (pt 248 48)(pt 232 48))
+	)
+	(port
+		(pt 248 64)
+		(output)
+		(text "BGEZo" (rect 0 0 44 12)(font "Arial" (font_size 8)))
+		(text "BGEZo" (rect 183 59 227 71)(font "Arial" (font_size 8)))
+		(line (pt 248 64)(pt 232 64))
+	)
+	(port
+		(pt 248 80)
+		(output)
+		(text "Out_Escreve_Mem" (rect 0 0 113 12)(font "Arial" (font_size 8)))
+		(text "Out_Escreve_Mem" (rect 114 75 227 87)(font "Arial" (font_size 8)))
+		(line (pt 248 80)(pt 232 80))
+	)
+	(port
+		(pt 248 96)
+		(output)
+		(text "Out_Escreve_Reg" (rect 0 0 107 12)(font "Arial" (font_size 8)))
+		(text "Out_Escreve_Reg" (rect 120 91 227 103)(font "Arial" (font_size 8)))
+		(line (pt 248 96)(pt 232 96))
+	)
+	(port
+		(pt 248 112)
+		(output)
+		(text "Out_PC_sel[1]" (rect 0 0 86 12)(font "Arial" (font_size 8)))
+		(text "Out_PC_sel[1]" (rect 141 107 227 119)(font "Arial" (font_size 8)))
+		(line (pt 248 112)(pt 232 112))
+	)
+	(port
+		(pt 248 128)
+		(output)
+		(text "Out_Jr" (rect 0 0 40 12)(font "Arial" (font_size 8)))
+		(text "Out_Jr" (rect 187 123 227 135)(font "Arial" (font_size 8)))
+		(line (pt 248 128)(pt 232 128))
+	)
+	(port
+		(pt 248 144)
+		(output)
+		(text "Out_Le_mem" (rect 0 0 80 12)(font "Arial" (font_size 8)))
+		(text "Out_Le_mem" (rect 147 139 227 151)(font "Arial" (font_size 8)))
+		(line (pt 248 144)(pt 232 144))
+	)
+	(drawing
+		(rectangle (rect 16 16 232 176))
+	)
+)

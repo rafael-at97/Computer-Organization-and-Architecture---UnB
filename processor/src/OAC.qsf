@@ -1,0 +1,227 @@
+# -------------------------------------------------------------------------- #
+#
+# Copyright (C) 1991-2013 Altera Corporation
+# Your use of Altera Corporation's design tools, logic functions 
+# and other software and tools, and its AMPP partner logic 
+# functions, and any output files from any of the foregoing 
+# (including device programming or simulation files), and any 
+# associated documentation or information are expressly subject 
+# to the terms and conditions of the Altera Program License 
+# Subscription Agreement, Altera MegaCore Function License 
+# Agreement, or other applicable license agreement, including, 
+# without limitation, that your use is for the sole purpose of 
+# programming logic devices manufactured by Altera and sold by 
+# Altera or its authorized distributors.  Please refer to the 
+# applicable agreement for further details.
+#
+# -------------------------------------------------------------------------- #
+#
+# Quartus II 64-Bit
+# Version 13.0.1 Build 232 06/12/2013 Service Pack 1 SJ Web Edition
+# Date created = 14:42:43  May 22, 2018
+#
+# -------------------------------------------------------------------------- #
+#
+# Notes:
+#
+# 1) The default values for assignments are stored in the file:
+#		OAC_assignment_defaults.qdf
+#    If this file doesn't exist, see file:
+#		assignment_defaults.qdf
+#
+# 2) Altera recommends that you do not modify this file. This
+#    file is updated automatically by the Quartus II software
+#    and any changes you make may be lost or overwritten.
+#
+# -------------------------------------------------------------------------- #
+
+
+set_global_assignment -name FAMILY "Cyclone II"
+set_global_assignment -name DEVICE EP2C70F896I8
+set_global_assignment -name TOP_LEVEL_ENTITY PIPELINE_FULL
+set_global_assignment -name ORIGINAL_QUARTUS_VERSION "13.0 SP1"
+set_global_assignment -name PROJECT_CREATION_TIME_DATE "14:42:43  MAY 22, 2018"
+set_global_assignment -name LAST_QUARTUS_VERSION "13.0 SP1"
+set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
+set_global_assignment -name EDA_SIMULATION_TOOL "ModelSim-Altera (Verilog)"
+set_global_assignment -name EDA_OUTPUT_DATA_FORMAT "VERILOG HDL" -section_id eda_simulation
+set_global_assignment -name MIN_CORE_JUNCTION_TEMP "-40"
+set_global_assignment -name MAX_CORE_JUNCTION_TEMP 125
+set_global_assignment -name EDA_RUN_TOOL_AUTOMATICALLY OFF -section_id eda_simulation
+set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
+set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_global_assignment -name EDA_TIME_SCALE "1 ps" -section_id eda_simulation
+set_global_assignment -name SIMULATION_MODE FUNCTIONAL
+set_global_assignment -name EDA_GENERATE_FUNCTIONAL_NETLIST ON -section_id eda_simulation
+set_global_assignment -name VECTOR_OUTPUT_FORMAT VWF
+set_global_assignment -name MIF_FILE instteste.mif
+set_global_assignment -name SOURCE_FILE ShiftLR.cmp
+set_global_assignment -name SOURCE_FILE ULAaddcte.cmp
+set_global_assignment -name SOURCE_FILE shiftl2.cmp
+set_global_assignment -name QIP_FILE ula_divu.qip
+set_global_assignment -name VHDL_FILE ula_mult.vhd
+set_global_assignment -name VHDL_FILE UlaMux.vhd
+set_global_assignment -name VHDL_FILE ula4mux.vhd
+set_global_assignment -name MIF_FILE PipelineInst.mif
+set_global_assignment -name MIF_FILE PipelineData.mif
+set_global_assignment -name SOURCE_FILE shifter.cmp
+set_global_assignment -name BSF_FILE shifter.bsf
+set_global_assignment -name BDF_FILE Overflow.bdf
+set_global_assignment -name BDF_FILE BarreiraEXMEM.bdf
+set_global_assignment -name BDF_FILE signal_extended.bdf
+set_global_assignment -name BDF_FILE sign_ex1.bdf
+set_global_assignment -name BDF_FILE Register5.bdf
+set_global_assignment -name SOURCE_FILE ula_multu.cmp
+set_global_assignment -name SOURCE_FILE UlaMux.cmp
+set_global_assignment -name SOURCE_FILE ula_mult.cmp
+set_global_assignment -name SOURCE_FILE MUX3_5.cmp
+set_global_assignment -name SOURCE_FILE ula4mux.cmp
+set_global_assignment -name SOURCE_FILE Memoria_Dados.cmp
+set_global_assignment -name SOURCE_FILE ula_div.cmp
+set_global_assignment -name SOURCE_FILE ula_divu.cmp
+set_global_assignment -name QIP_FILE Memoria_Dados.qip
+set_global_assignment -name BDF_FILE ULAPC.bdf
+set_global_assignment -name VHDL_FILE ula_multu.vhd
+set_global_assignment -name VHDL_FILE ula_divu.vhd
+set_global_assignment -name VHDL_FILE ula_div.vhd
+set_global_assignment -name BDF_FILE Ula4bitssimples.bdf
+set_global_assignment -name BDF_FILE Ula4bitsMSB.bdf
+set_global_assignment -name BDF_FILE Ula4bitsLSB.bdf
+set_global_assignment -name BDF_FILE Ula4bits.bdf
+set_global_assignment -name BDF_FILE Ula1bitsimples.bdf
+set_global_assignment -name BDF_FILE Ula1bitMSB.bdf
+set_global_assignment -name BDF_FILE Ula1bitLSB.bdf
+set_global_assignment -name BDF_FILE Ula1bit.bdf
+set_global_assignment -name BDF_FILE ULA2.bdf
+set_global_assignment -name BDF_FILE Upper2.bdf
+set_global_assignment -name SOURCE_FILE MUX2_32.cmp
+set_global_assignment -name VERILOG_FILE Memoria_Dados.v
+set_global_assignment -name VHDL_FILE lpm_mux0.vhd
+set_global_assignment -name VHDL_FILE lpm_mux5.vhd
+set_global_assignment -name VHDL_FILE lpm_mux3.vhd
+set_global_assignment -name VHDL_FILE lpm_mux4.vhd
+set_global_assignment -name VHDL_FILE lpm_constant2.vhd
+set_global_assignment -name VHDL_FILE ADD4.vhd
+set_global_assignment -name VHDL_FILE lpm_decode0.vhd
+set_global_assignment -name VHDL_FILE lpm_constant0.vhd
+set_global_assignment -name VHDL_FILE lpm_constant1.vhd
+set_global_assignment -name VHDL_FILE lpm_mux1.vhd
+set_global_assignment -name SOURCE_FILE lpm_decode0.cmp
+set_global_assignment -name SOURCE_FILE lpm_mux3.cmp
+set_global_assignment -name SOURCE_FILE Memoria_Instrucao.cmp
+set_global_assignment -name SOURCE_FILE ADD4.cmp
+set_global_assignment -name SOURCE_FILE lpm_mux4.cmp
+set_global_assignment -name SOURCE_FILE lpm_constant1.cmp
+set_global_assignment -name SOURCE_FILE lpm_mux0.cmp
+set_global_assignment -name SOURCE_FILE lpm_mux5.cmp
+set_global_assignment -name SOURCE_FILE MEMORIA_DADOS.cmp
+set_global_assignment -name SOURCE_FILE lpm_mux1.cmp
+set_global_assignment -name SOURCE_FILE lpm_mux2.cmp
+set_global_assignment -name SOURCE_FILE lpm_constant2.cmp
+set_global_assignment -name SOURCE_FILE MUX3_32.cmp
+set_global_assignment -name QIP_FILE lpm_mux2.qip
+set_global_assignment -name BDF_FILE tolete.bdf
+set_global_assignment -name BDF_FILE MAISQUATRO.bdf
+set_global_assignment -name BDF_FILE ULAO.bdf
+set_global_assignment -name BDF_FILE testereg.bdf
+set_global_assignment -name BDF_FILE TESTEBAGARAI.bdf
+set_global_assignment -name BDF_FILE testetolete.bdf
+set_global_assignment -name VHDL_FILE lpm_mux2.vhd
+set_global_assignment -name BDF_FILE Register.bdf
+set_global_assignment -name BDF_FILE BarreiraIFID_2.bdf
+set_global_assignment -name BDF_FILE BarreiraIDEX_2.bdf
+set_global_assignment -name BDF_FILE registradorPedro.bdf
+set_global_assignment -name BDF_FILE somadorcompleto.bdf
+set_global_assignment -name BDF_FILE ULA.bdf
+set_global_assignment -name BDF_FILE ULA32.bdf
+set_global_assignment -name BDF_FILE UltimaULA.bdf
+set_global_assignment -name BDF_FILE Processador.bdf
+set_global_assignment -name BDF_FILE registrador32.bdf
+set_global_assignment -name BDF_FILE BancoReg.bdf
+set_global_assignment -name BDF_FILE Seletor.bdf
+set_global_assignment -name QIP_FILE lpm_decode0.qip
+set_global_assignment -name QIP_FILE lpm_mux0.qip
+set_global_assignment -name BDF_FILE RegZero.bdf
+set_global_assignment -name BDF_FILE DetectorOverflow.bdf
+set_global_assignment -name BDF_FILE Controle.bdf
+set_global_assignment -name BDF_FILE EXTSIGN16_to_32.bdf
+set_global_assignment -name BDF_FILE PC.bdf
+set_global_assignment -name BDF_FILE barreira_IF_ID.bdf
+set_global_assignment -name BDF_FILE barreira_ID_EX.bdf
+set_global_assignment -name BDF_FILE barreira_EX_MEM.bdf
+set_global_assignment -name BDF_FILE barreira_MEM_WB.bdf
+set_global_assignment -name QIP_FILE lpm_constant0.qip
+set_global_assignment -name QIP_FILE lpm_constant1.qip
+set_global_assignment -name VECTOR_WAVEFORM_FILE Waveform.vwf
+set_global_assignment -name QIP_FILE lpm_constant2.qip
+set_global_assignment -name QIP_FILE lpm_mux1.qip
+set_global_assignment -name VECTOR_WAVEFORM_FILE teste_barreira_1.vwf
+set_global_assignment -name BDF_FILE registrador4.bdf
+set_global_assignment -name VECTOR_WAVEFORM_FILE teste_barreira_2.vwf
+set_global_assignment -name VECTOR_WAVEFORM_FILE teste_barreira_3.vwf
+set_global_assignment -name VECTOR_WAVEFORM_FILE teste_barreira_4.vwf
+set_global_assignment -name BDF_FILE shift_left2.bdf
+set_global_assignment -name VECTOR_WAVEFORM_FILE teste_shift.vwf
+set_global_assignment -name BDF_FILE controle_ULA.bdf
+set_global_assignment -name VECTOR_WAVEFORM_FILE teste_cont_ula.vwf
+set_global_assignment -name BDF_FILE ID_EX_cont.bdf
+set_global_assignment -name VECTOR_WAVEFORM_FILE teste_cbar_1.vwf
+set_global_assignment -name BDF_FILE EX_MEM_cont.bdf
+set_global_assignment -name BDF_FILE MEM_WB_cont.bdf
+set_global_assignment -name QIP_FILE lpm_mux3.qip
+set_global_assignment -name QIP_FILE Memoria_Instrucao.qip
+set_global_assignment -name QIP_FILE MEMORIA_DADOS.qip
+set_global_assignment -name VECTOR_WAVEFORM_FILE TESTESUMULADOR.vwf
+set_global_assignment -name VECTOR_WAVEFORM_FILE ula32.vwf
+set_global_assignment -name VECTOR_WAVEFORM_FILE Waveform1.vwf
+set_global_assignment -name BDF_FILE registrador16.bdf
+set_global_assignment -name BDF_FILE Upper.bdf
+set_global_assignment -name QIP_FILE lpm_mux4.qip
+set_global_assignment -name BDF_FILE PIPELINE_PROC.bdf
+set_global_assignment -name BDF_FILE Unidade_Forwarding.bdf
+set_global_assignment -name VECTOR_WAVEFORM_FILE teste_forw.vwf
+set_global_assignment -name VECTOR_WAVEFORM_FILE pcwaveform.vwf
+set_global_assignment -name BDF_FILE testemux.bdf
+set_global_assignment -name VECTOR_WAVEFORM_FILE testemux.vwf
+set_global_assignment -name QIP_FILE lpm_mux5.qip
+set_global_assignment -name BDF_FILE cont_hazard.bdf
+set_global_assignment -name VECTOR_WAVEFORM_FILE teste_cont_haz.vwf
+set_global_assignment -name BDF_FILE reg_32_clear.bdf
+set_global_assignment -name BDF_FILE registrador5.bdf
+set_global_assignment -name QIP_FILE MUX3_32.qip
+set_global_assignment -name QIP_FILE ADD4.qip
+set_global_assignment -name BDF_FILE PIPELINE_FULL.bdf
+set_global_assignment -name BDF_FILE Register29.bdf
+set_global_assignment -name QIP_FILE MUX2_32.qip
+set_global_assignment -name QIP_FILE MUX3_5.qip
+set_global_assignment -name BDF_FILE Controle2.bdf
+set_global_assignment -name BDF_FILE CalcBEQ.bdf
+set_global_assignment -name BDF_FILE CalcJadd.bdf
+set_global_assignment -name BDF_FILE Branch.bdf
+set_global_assignment -name BDF_FILE CtrlALU.bdf
+set_global_assignment -name BDF_FILE B_ID_EX.bdf
+set_global_assignment -name QIP_FILE ShiftLR.qip
+set_global_assignment -name QIP_FILE shiftl2.qip
+set_global_assignment -name QIP_FILE ULAaddcte.qip
+set_global_assignment -name VECTOR_WAVEFORM_FILE Full.vwf
+set_global_assignment -name QIP_FILE shiftr2.qip
+set_global_assignment -name BDF_FILE testebreg.bdf
+set_global_assignment -name VECTOR_WAVEFORM_FILE testebreg.vwf
+set_global_assignment -name QIP_FILE MUX2_1.qip
+set_global_assignment -name QIP_FILE MUX2_2.qip
+set_global_assignment -name BDF_FILE MUXcontrole.bdf
+set_global_assignment -name BDF_FILE Clockmult.bdf
+set_global_assignment -name VECTOR_WAVEFORM_FILE Clockteste.vwf
+set_global_assignment -name QIP_FILE MUX2_5.qip
+set_global_assignment -name BDF_FILE ControlJump.bdf
+set_global_assignment -name BDF_FILE Pipelinecomjump.bdf
+set_global_assignment -name QIP_FILE shiftarithmetic.qip
+set_global_assignment -name QIP_FILE cte22.qip
+set_global_assignment -name QIP_FILE cte10.qip
+set_global_assignment -name VECTOR_WAVEFORM_FILE tolete.vwf
+set_global_assignment -name PARTITION_NETLIST_TYPE SOURCE -section_id Top
+set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_ROUTING -section_id Top
+set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
+set_global_assignment -name BDF_FILE Exception.bdf
+set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
+set_global_assignment -name INCREMENTAL_VECTOR_INPUT_SOURCE /home/rafael/Downloads/VTNC/ProjetoOAC2/Full.vwf

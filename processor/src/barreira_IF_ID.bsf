@@ -1,0 +1,71 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 1991-2013 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+*/
+(header "symbol" (version "1.2"))
+(symbol
+	(rect 16 16 328 144)
+	(text "barreira_IF_ID" (rect 5 0 84 14)(font "Arial" (font_size 8)))
+	(text "inst" (rect 8 112 25 124)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "Clock" (rect 0 0 30 14)(font "Arial" (font_size 8)))
+		(text "Clock" (rect 21 27 51 41)(font "Arial" (font_size 8)))
+		(line (pt 0 32)(pt 16 32))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "Input_PC4[31..0]" (rect 0 0 92 14)(font "Arial" (font_size 8)))
+		(text "Input_PC4[31..0]" (rect 21 43 113 57)(font "Arial" (font_size 8)))
+		(line (pt 0 48)(pt 16 48)(line_width 3))
+	)
+	(port
+		(pt 0 64)
+		(input)
+		(text "Enable_IF_ID" (rect 0 0 71 14)(font "Arial" (font_size 8)))
+		(text "Enable_IF_ID" (rect 21 59 92 73)(font "Arial" (font_size 8)))
+		(line (pt 0 64)(pt 16 64))
+	)
+	(port
+		(pt 0 80)
+		(input)
+		(text "Input_Instrucao[31..0]" (rect 0 0 122 14)(font "Arial" (font_size 8)))
+		(text "Input_Instrucao[31..0]" (rect 21 75 143 89)(font "Arial" (font_size 8)))
+		(line (pt 0 80)(pt 16 80)(line_width 3))
+	)
+	(port
+		(pt 312 32)
+		(output)
+		(text "Output_PC4[31..0]" (rect 0 0 102 14)(font "Arial" (font_size 8)))
+		(text "Output_PC4[31..0]" (rect 189 27 291 41)(font "Arial" (font_size 8)))
+		(line (pt 312 32)(pt 296 32)(line_width 3))
+	)
+	(port
+		(pt 312 48)
+		(output)
+		(text "Output_Instrucao[31..0]" (rect 0 0 133 14)(font "Arial" (font_size 8)))
+		(text "Output_Instrucao[31..0]" (rect 158 43 291 57)(font "Arial" (font_size 8)))
+		(line (pt 312 48)(pt 296 48)(line_width 3))
+	)
+	(drawing
+		(rectangle (rect 16 16 296 112))
+	)
+)

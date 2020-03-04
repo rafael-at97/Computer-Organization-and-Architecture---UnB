@@ -1,0 +1,148 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 1991-2013 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+*/
+(header "symbol" (version "1.2"))
+(symbol
+	(rect 16 16 224 304)
+	(text "Controle2" (rect 5 0 62 12)(font "Arial" (font_size 8)))
+	(text "inst" (rect 8 274 25 284)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "Ins[5..0]" (rect 0 0 48 12)(font "Arial" (font_size 8)))
+		(text "Ins[5..0]" (rect 21 27 69 39)(font "Arial" (font_size 8)))
+		(line (pt 0 32)(pt 16 32)(line_width 3))
+	)
+	(port
+		(pt 0 48)
+		(input)
+		(text "funct[5..0]" (rect 0 0 59 12)(font "Arial" (font_size 8)))
+		(text "funct[5..0]" (rect 21 43 80 55)(font "Arial" (font_size 8)))
+		(line (pt 0 48)(pt 16 48)(line_width 3))
+	)
+	(port
+		(pt 208 32)
+		(output)
+		(text "BEQ" (rect 0 0 29 12)(font "Arial" (font_size 8)))
+		(text "BEQ" (rect 158 27 187 39)(font "Arial" (font_size 8)))
+		(line (pt 208 32)(pt 192 32))
+	)
+	(port
+		(pt 208 48)
+		(output)
+		(text "BEQn" (rect 0 0 36 12)(font "Arial" (font_size 8)))
+		(text "BEQn" (rect 151 43 187 55)(font "Arial" (font_size 8)))
+		(line (pt 208 48)(pt 192 48))
+	)
+	(port
+		(pt 208 64)
+		(output)
+		(text "BEQez" (rect 0 0 42 12)(font "Arial" (font_size 8)))
+		(text "BEQez" (rect 145 59 187 71)(font "Arial" (font_size 8)))
+		(line (pt 208 64)(pt 192 64))
+	)
+	(port
+		(pt 208 80)
+		(output)
+		(text "Regdst[1..0]" (rect 0 0 71 12)(font "Arial" (font_size 8)))
+		(text "Regdst[1..0]" (rect 116 75 187 87)(font "Arial" (font_size 8)))
+		(line (pt 208 80)(pt 192 80)(line_width 3))
+	)
+	(port
+		(pt 208 96)
+		(output)
+		(text "OrigALU[1..0]" (rect 0 0 80 12)(font "Arial" (font_size 8)))
+		(text "OrigALU[1..0]" (rect 107 91 187 103)(font "Arial" (font_size 8)))
+		(line (pt 208 96)(pt 192 96)(line_width 3))
+	)
+	(port
+		(pt 208 112)
+		(output)
+		(text "Escreve_mem" (rect 0 0 84 12)(font "Arial" (font_size 8)))
+		(text "Escreve_mem" (rect 103 107 187 119)(font "Arial" (font_size 8)))
+		(line (pt 208 112)(pt 192 112))
+	)
+	(port
+		(pt 208 128)
+		(output)
+		(text "Escreve_reg" (rect 0 0 74 12)(font "Arial" (font_size 8)))
+		(text "Escreve_reg" (rect 113 123 187 135)(font "Arial" (font_size 8)))
+		(line (pt 208 128)(pt 192 128))
+	)
+	(port
+		(pt 208 144)
+		(output)
+		(text "EHILO" (rect 0 0 40 12)(font "Arial" (font_size 8)))
+		(text "EHILO" (rect 147 139 187 151)(font "Arial" (font_size 8)))
+		(line (pt 208 144)(pt 192 144))
+	)
+	(port
+		(pt 208 160)
+		(output)
+		(text "ULAorHILO[1..0]" (rect 0 0 97 12)(font "Arial" (font_size 8)))
+		(text "ULAorHILO[1..0]" (rect 90 155 187 167)(font "Arial" (font_size 8)))
+		(line (pt 208 160)(pt 192 160)(line_width 3))
+	)
+	(port
+		(pt 208 176)
+		(output)
+		(text "Ex_sel" (rect 0 0 40 12)(font "Arial" (font_size 8)))
+		(text "Ex_sel" (rect 147 171 187 183)(font "Arial" (font_size 8)))
+		(line (pt 208 176)(pt 192 176))
+	)
+	(port
+		(pt 208 192)
+		(output)
+		(text "PC_sel[1]" (rect 0 0 57 12)(font "Arial" (font_size 8)))
+		(text "PC_sel[1]" (rect 130 187 187 199)(font "Arial" (font_size 8)))
+		(line (pt 208 192)(pt 192 192))
+	)
+	(port
+		(pt 208 208)
+		(output)
+		(text "OpALU[1..0]" (rect 0 0 73 12)(font "Arial" (font_size 8)))
+		(text "OpALU[1..0]" (rect 114 203 187 215)(font "Arial" (font_size 8)))
+		(line (pt 208 208)(pt 192 208)(line_width 3))
+	)
+	(port
+		(pt 208 224)
+		(output)
+		(text "Jr" (rect 0 0 12 12)(font "Arial" (font_size 8)))
+		(text "Jr" (rect 175 219 187 231)(font "Arial" (font_size 8)))
+		(line (pt 208 224)(pt 192 224))
+	)
+	(port
+		(pt 208 240)
+		(output)
+		(text "Le_mem" (rect 0 0 51 12)(font "Arial" (font_size 8)))
+		(text "Le_mem" (rect 136 235 187 247)(font "Arial" (font_size 8)))
+		(line (pt 208 240)(pt 192 240))
+	)
+	(port
+		(pt 208 256)
+		(output)
+		(text "shift" (rect 0 0 25 12)(font "Arial" (font_size 8)))
+		(text "shift" (rect 162 251 187 263)(font "Arial" (font_size 8)))
+		(line (pt 208 256)(pt 192 256))
+	)
+	(drawing
+		(rectangle (rect 16 16 192 272))
+	)
+)

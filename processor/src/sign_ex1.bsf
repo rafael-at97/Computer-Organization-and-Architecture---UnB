@@ -1,0 +1,155 @@
+/*
+WARNING: Do NOT edit the input and output ports in this file in a text
+editor if you plan to continue editing the block that represents it in
+the Block Editor! File corruption is VERY likely to occur.
+*/
+/*
+Copyright (C) 1991-2013 Altera Corporation
+Your use of Altera Corporation's design tools, logic functions 
+and other software and tools, and its AMPP partner logic 
+functions, and any output files from any of the foregoing 
+(including device programming or simulation files), and any 
+associated documentation or information are expressly subject 
+to the terms and conditions of the Altera Program License 
+Subscription Agreement, Altera MegaCore Function License 
+Agreement, or other applicable license agreement, including, 
+without limitation, that your use is for the sole purpose of 
+programming logic devices manufactured by Altera and sold by 
+Altera or its authorized distributors.  Please refer to the 
+applicable agreement for further details.
+*/
+(header "symbol" (version "1.2"))
+(symbol
+	(rect 16 16 240 336)
+	(text "sign_ex1" (rect 5 0 58 12)(font "Arial" (font_size 8)))
+	(text "inst" (rect 8 306 25 316)(font "Arial" ))
+	(port
+		(pt 0 32)
+		(input)
+		(text "Signal[15..0]" (rect 0 0 74 12)(font "Arial" (font_size 8)))
+		(text "Signal[15..0]" (rect 21 27 95 39)(font "Arial" (font_size 8)))
+		(line (pt 0 32)(pt 16 32)(line_width 3))
+	)
+	(port
+		(pt 224 32)
+		(output)
+		(text "Signal_ex[31]" (rect 0 0 80 12)(font "Arial" (font_size 8)))
+		(text "Signal_ex[31]" (rect 123 27 203 39)(font "Arial" (font_size 8)))
+		(line (pt 224 32)(pt 208 32))
+	)
+	(port
+		(pt 224 48)
+		(output)
+		(text "Signal_ex[30]" (rect 0 0 80 12)(font "Arial" (font_size 8)))
+		(text "Signal_ex[30]" (rect 123 43 203 55)(font "Arial" (font_size 8)))
+		(line (pt 224 48)(pt 208 48))
+	)
+	(port
+		(pt 224 64)
+		(output)
+		(text "Signal_ex[29]" (rect 0 0 80 12)(font "Arial" (font_size 8)))
+		(text "Signal_ex[29]" (rect 123 59 203 71)(font "Arial" (font_size 8)))
+		(line (pt 224 64)(pt 208 64))
+	)
+	(port
+		(pt 224 80)
+		(output)
+		(text "Signal_ex[28]" (rect 0 0 80 12)(font "Arial" (font_size 8)))
+		(text "Signal_ex[28]" (rect 123 75 203 87)(font "Arial" (font_size 8)))
+		(line (pt 224 80)(pt 208 80))
+	)
+	(port
+		(pt 224 96)
+		(output)
+		(text "Signal_ex[27]" (rect 0 0 80 12)(font "Arial" (font_size 8)))
+		(text "Signal_ex[27]" (rect 123 91 203 103)(font "Arial" (font_size 8)))
+		(line (pt 224 96)(pt 208 96))
+	)
+	(port
+		(pt 224 112)
+		(output)
+		(text "Signal_ex[26]" (rect 0 0 80 12)(font "Arial" (font_size 8)))
+		(text "Signal_ex[26]" (rect 123 107 203 119)(font "Arial" (font_size 8)))
+		(line (pt 224 112)(pt 208 112))
+	)
+	(port
+		(pt 224 128)
+		(output)
+		(text "Signal_ex[25]" (rect 0 0 80 12)(font "Arial" (font_size 8)))
+		(text "Signal_ex[25]" (rect 123 123 203 135)(font "Arial" (font_size 8)))
+		(line (pt 224 128)(pt 208 128))
+	)
+	(port
+		(pt 224 144)
+		(output)
+		(text "Signal_ex[24]" (rect 0 0 80 12)(font "Arial" (font_size 8)))
+		(text "Signal_ex[24]" (rect 123 139 203 151)(font "Arial" (font_size 8)))
+		(line (pt 224 144)(pt 208 144))
+	)
+	(port
+		(pt 224 160)
+		(output)
+		(text "Signal_ex[23]" (rect 0 0 80 12)(font "Arial" (font_size 8)))
+		(text "Signal_ex[23]" (rect 123 155 203 167)(font "Arial" (font_size 8)))
+		(line (pt 224 160)(pt 208 160))
+	)
+	(port
+		(pt 224 176)
+		(output)
+		(text "Signal_ex[22]" (rect 0 0 80 12)(font "Arial" (font_size 8)))
+		(text "Signal_ex[22]" (rect 123 171 203 183)(font "Arial" (font_size 8)))
+		(line (pt 224 176)(pt 208 176))
+	)
+	(port
+		(pt 224 192)
+		(output)
+		(text "Signal_ex[21]" (rect 0 0 80 12)(font "Arial" (font_size 8)))
+		(text "Signal_ex[21]" (rect 123 187 203 199)(font "Arial" (font_size 8)))
+		(line (pt 224 192)(pt 208 192))
+	)
+	(port
+		(pt 224 208)
+		(output)
+		(text "Signal_ex[20]" (rect 0 0 80 12)(font "Arial" (font_size 8)))
+		(text "Signal_ex[20]" (rect 123 203 203 215)(font "Arial" (font_size 8)))
+		(line (pt 224 208)(pt 208 208))
+	)
+	(port
+		(pt 224 224)
+		(output)
+		(text "Signal_ex[19]" (rect 0 0 80 12)(font "Arial" (font_size 8)))
+		(text "Signal_ex[19]" (rect 123 219 203 231)(font "Arial" (font_size 8)))
+		(line (pt 224 224)(pt 208 224))
+	)
+	(port
+		(pt 224 240)
+		(output)
+		(text "Signal_ex[18]" (rect 0 0 80 12)(font "Arial" (font_size 8)))
+		(text "Signal_ex[18]" (rect 123 235 203 247)(font "Arial" (font_size 8)))
+		(line (pt 224 240)(pt 208 240))
+	)
+	(port
+		(pt 224 256)
+		(output)
+		(text "Signal_ex[17]" (rect 0 0 80 12)(font "Arial" (font_size 8)))
+		(text "Signal_ex[17]" (rect 123 251 203 263)(font "Arial" (font_size 8)))
+		(line (pt 224 256)(pt 208 256))
+	)
+	(port
+		(pt 224 272)
+		(output)
+		(text "Signal_ex[16]" (rect 0 0 80 12)(font "Arial" (font_size 8)))
+		(text "Signal_ex[16]" (rect 123 267 203 279)(font "Arial" (font_size 8)))
+		(line (pt 224 272)(pt 208 272))
+	)
+	(port
+		(pt 224 288)
+		(output)
+		(text "Signal_ex[15..0]" (rect 0 0 94 12)(font "Arial" (font_size 8)))
+		(text "Signal_ex[15..0]" (rect 109 283 203 295)(font "Arial" (font_size 8)))
+		(line (pt 224 288)(pt 208 288)(line_width 3))
+	)
+	(drawing
+		(rectangle (rect 16 16 208 304))
+	)
+)
